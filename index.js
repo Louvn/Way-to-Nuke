@@ -5,15 +5,17 @@ const shop = document.getElementById("shop");
 const shopItemsScreen = document.getElementById("shopItems");
 const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
 
-let oreDamageOnClick = 1;
-let oreDamageOnTick = 0;
+let savedGame = JSON.parse(localStorage.getItem("save")) || {
+    oreDamageOnClick: 1,
+    oreDamageOnTick: 0,
+    level: 0,
+    inventory: {},
+    currentOre: null
+};
 
 let isPressed = false;
 let allOres = [];
 let allShopItems = [];
-let level = 0;
-let inventory = {};
-let currentOre = null;
 
 document.addEventListener("keydown", (e) => {
     if((e.code === "Enter" || e.code === "Space") && !isPressed) {
@@ -27,7 +29,7 @@ document.addEventListener("keyup", (e) => {
     if (e.code === "Enter" || e.code === "Space") isPressed = false;
 })
 
-function renderInventory(inv = inventory, invScreen = inventoryScreen, id = "inventory") {
+function renderInventory(inv = savedGame.inventory, invScreen = inventoryScreen, id = "inventory") {
     Object.entries(inv).forEach(([ore, value]) => {
         let existing = document.getElementById(`inventory-${ore}`);
         if (!existing) {
@@ -41,25 +43,33 @@ function renderInventory(inv = inventory, invScreen = inventoryScreen, id = "inv
     });
 }
 
-function destroyOre(ore = currentOre) {
-    level += 1;
-    if (!inventory[ore.id]) inventory[ore.id] = 0;
-    inventory[ore.id] += 1;
+function destroyOre(ore_id = savedGame.currentOre) {
+    savedGame.level += 1;
+    if (!savedGame.inventory[ore_id]) savedGame.inventory[ore_id] = 0;
+    savedGame.inventory[ore_id] += 1;
     generateNewOre();
     renderInventory();
 }
 
 function onOreClick() {
-    oreDestroyingProgress.value -= oreDamageOnClick;
+    oreDestroyingProgress.value -= savedGame.oreDamageOnClick;
     if (oreDestroyingProgress.value <= 0) {
         destroyOre();
     }
 }
 
-function generateNewOre() {
+function generateNewOre(id = null) {
     document.querySelectorAll(".ore-button").forEach(el => el.remove());
-    const allOresAvailable = allOres.filter((value) => value.min_level <= level);
-    const oreData = allOresAvailable[Math.floor(Math.random() * allOresAvailable.length)];
+    const allOresAvailable = allOres.filter((value) => value.min_level <= savedGame.level);
+    let oreData = allOresAvailable[Math.floor(Math.random() * allOresAvailable.length)];
+
+    if (id) {
+        allOresAvailable.forEach((ore) => {
+            if (ore.name == id ) {
+                oreData = ore;
+            }
+        })
+    }
 
     const ore = document.createElement("button");
     ore.classList.add("ore-button");
@@ -76,7 +86,7 @@ function generateNewOre() {
 
     ore.addEventListener("click", () => onOreClick());
     
-    currentOre = ore;
+    savedGame.currentOre = ore.id;
     gameScreen.appendChild(ore);
 }
 
@@ -93,7 +103,7 @@ function buyItem(item) {
 
     for (const [ore, number] of requirementsToBuy) {
         let inInventory = false;
-        Object.entries(inventory).forEach(([inventoryOre, inventoryNumber]) => {
+        Object.entries(savedGame.inventory).forEach(([inventoryOre, inventoryNumber]) => {
             if (inventoryOre == ore && inventoryNumber >= number) inInventory = true;
         });
         if (!inInventory) {
@@ -103,17 +113,17 @@ function buyItem(item) {
     };
     if (!confirm("Do you want to buy " + item.name + "?")) return;
     requirementsToBuy.forEach(([ore, number]) => {
-        inventory[ore] -= number;
+        savedGame.inventory[ore] -= number;
     });
     renderInventory();
 
     let effect = item.effect;
 
     if (effect.click) {
-        oreDamageOnClick += effect.click;
+        savedGame.oreDamageOnClick += effect.click;
     }
     if (effect.tick) {
-        oreDamageOnTick += effect.tick;
+        savedGame.oreDamageOnTick += effect.tick;
     }
 }
 
@@ -140,7 +150,8 @@ fetch("ores.json")
             .then(data => {
                 allShopItems = data;
                 renderShop();
-                generateNewOre();
+                renderInventory();
+                generateNewOre(savedGame.currentOre);
             })
     })
     .catch(error => {
@@ -149,8 +160,10 @@ fetch("ores.json")
     })
 
 setInterval(() => {
-    oreDestroyingProgress.value -= oreDamageOnTick;
+    oreDestroyingProgress.value -= savedGame.oreDamageOnTick;
     if (oreDestroyingProgress.value <= 0) {
         destroyOre();
     }
+
+    localStorage.setItem("save", JSON.stringify(savedGame));
 }, 1000);
