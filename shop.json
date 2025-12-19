@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Pickaxe",
+        "description": "Pickaxe - Gains More Damage",
+        "image": "./assets/iron_pickaxe_upgrade.png",
+        "price": {
+            "Coal": 12
+        },
+        "effect": {
+            "click": 1
+        }
+    },
+    {
+        "name": "Employee",
+        "description": "Employee - Destroying Ores over Time",
+        "image": "./assets/employee_upgrade.png",
+        "price": {
+            "Gold": 20
+        },
+        "effect": {
+            "tick": 1
+        }
+    }
+]

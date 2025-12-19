@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining Odds</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="gameScreen">
+        <progress id="oreDestroyingProgress" min="1"></progress>
+        <button class="shop-button" onclick="openShop()">
+            <img src="./assets/shopkeeper.png" alt="open Shop">
+        </button>
+        <div class="bar">
+            <ol id="inventory"></ol>
+        </div>
+        <div id="shop">
+            <section class="shopHeader">
+                <img src="./assets/shop_sign.png" alt="" class="shopSign">
+                <button onclick="closeShop()" class="closeButton">x</button>
+            </section>
+            <section id="shopItems">
+                <template id="shopItemCardTemplate">
+                    <button class="card">
+                        <img src="" alt="" class="image">
+                        <p class="description"></p>
+                        <ol class="price"></ol>
+                    </button>
+                </template>
+            </section>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>

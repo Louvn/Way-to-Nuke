@@ -1,0 +1,80 @@
+[
+    {
+        "name": "Coal",
+        "image": "./assets/coal_ore.png",
+        "min_level": 0,
+        "health": 20
+    },
+    {
+        "name": "Copper",
+        "image": "./assets/copper_ore.png",
+        "min_level": 10,
+        "health": 30
+    },
+    {
+        "name": "Iron",
+        "image": "./assets/iron_ore.png",
+        "min_level": 30,
+        "health": 50
+    },
+    {
+        "name": "Amethyst",
+        "image": "./assets/amethyst_ore.png",
+        "min_level": 50,
+        "health": 40
+    },
+    {
+        "name": "Sapphire",
+        "image": "./assets/sapphire_ore.png",
+        "min_level": 60,
+        "health": 65
+    },
+    {
+        "name": "Ruby",
+        "image": "./assets/ruby_ore.png",
+        "min_level": 80,
+        "health": 70
+    },
+    {
+        "name": "Opal",
+        "image": "./assets/opal_ore.png",
+        "min_level": 90,
+        "health": 80
+    },
+    {
+        "name": "Gold",
+        "image": "./assets/gold_ore.png",
+        "min_level": 100,
+        "health": 40
+    },
+    {
+        "name": "Emerald",
+        "image": "./assets/emerald_ore.png",
+        "min_level": 120,
+        "health": 85
+    },
+    {
+        "name": "Titanium",
+        "image": "./assets/titanium_ore.png",
+        "min_level": 140,
+        "health": 120
+    },
+    {
+        "name": "Platinum",
+        "image": "./assets/platinum_ore.png",
+        "min_level": 170,
+        "health": 100
+    },
+    {
+        "name": "Diamond",
+        "image": "./assets/diamond_ore.png",
+        "min_level": 200,
+        "health": 100
+    },
+    {
+        "name": "Uranium",
+        "image": "./assets/uranium_ore.png",
+        "min_level": 400,
+        "health": 200
+    }
+]
