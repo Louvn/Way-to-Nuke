@@ -196,7 +196,7 @@ setInterval(() => {
 
     // save the Game
     if ("everlyAPI" in window) {
-        everlyAPI.saveGame(JSON.stringify(savedGame));
+        everlyAPI.saveGame(savedGame);
     } else {
         localStorage.setItem("save", JSON.stringify(savedGame));
     }
