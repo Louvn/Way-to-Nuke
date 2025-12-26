@@ -7,7 +7,7 @@ const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
 
 // Load Saved Game
 let savedGame;
-if ("evesrlyAPI" in window) {
+if ("everlyAPI" in window) {
     everlyAPI.loadGame((data) => {
         savedGame = data;
         startGame();
