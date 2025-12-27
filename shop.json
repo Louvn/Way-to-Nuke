@@ -1,7 +1,7 @@
 [
     {
         "name": "Pickaxe",
-        "description": "Pickaxe - Gains More Damage",
+        "description": "+1 Damage per click",
         "image": "./assets/iron_pickaxe_upgrade.png",
         "price": {
             "Coal": 12
@@ -9,13 +9,15 @@
         "priceIncrement": {
             "Coal": 4
         },
+        "buyed": 0,
+        "buyable": 5, 
         "effect": {
             "click": 1
         }
     },
     {
         "name": "Employee",
-        "description": "Employee - Destroying Ores over Time",
+        "description": "+1 Damage per tick",
         "image": "./assets/employee_upgrade.png",
         "price": {
             "Gold": 2
@@ -23,8 +25,89 @@
         "priceIncrement": {
             "Gold": 4
         },
+        "buyed": 0,
+        "buyable": 10,
         "effect": {
             "tick": 1
+        }
+    },
+    {
+        "name": "Dynamite",
+        "description": "+3 Damage per click",
+        "image": "./assets/dynamite_upgrade.png",
+        "price": {
+            "Iron": 10,
+            "Copper": 12
+        },
+        "priceIncrement": {
+            "Iron": 2
+        },
+        "buyed": 0,
+        "buyable": 4,
+        "effect": {
+            "click": 3
+        }
+    },
+    {
+        "name": "Mineshaft A",
+        "description": "Discover Gold",
+        "image": "./assets/mineshaft_gold_upgrade.png",
+        "price": {
+            "Ruby": 5,
+            "Opal": 2,
+            "Sapphire": 10
+        },
+        "priceIncrement": {},
+        "buyed": 0,
+        "buyable": 1,
+        "effect": {
+            "discovered": ["Gold"]
+        }
+    },
+    {
+        "name": "The Scientist",
+        "description": "Discover Uranium",
+        "image": "./assets/scientist_upgrade.png",
+        "price": {
+            "Gold": 80,
+            "Diamond": 20
+        },
+        "priceIncrement": {},
+        "buyed": 0,
+        "buyable": 1,
+        "effect": {
+            "discovered": ["Uranium"]
+        }
+    },
+    {
+        "name": "Nuke",
+        "description": "A powerful weapon",
+        "image": "./assets/nuke_upgrade.png",
+        "price": {
+            "Uranium": 100,
+            "Titanium": 150
+        },
+        "priceIncrement": {
+            "Uranium": 20,
+            "Titanium": 30
+        },
+        "buyed": 0,
+        "buyable": 30,
+        "effect": {}
+    },
+    {
+        "name": "Mineshaft B",
+        "description": "Discover Diamonds",
+        "image": "./assets/mineshaft_diamonds_upgrade.png",
+        "price": {
+            "Gold": 30,
+            "Ruby": 30
+        },
+        "priceIncrement": {},
+        "buyed": 0,
+        "buyable": 1,
+        "effect": {
+            "discovered": ["Diamond"]
         }
     }
 ]

@@ -3,78 +3,91 @@
         "name": "Coal",
         "image": "./assets/coal_ore.png",
         "min_level": 0,
-        "health": 20
+        "health": 20,
+        "discovered": true
     },
     {
         "name": "Copper",
         "image": "./assets/copper_ore.png",
         "min_level": 10,
-        "health": 30
+        "health": 40,
+        "discovered": true
     },
     {
         "name": "Iron",
         "image": "./assets/iron_ore.png",
         "min_level": 30,
-        "health": 50
+        "health": 100,
+        "discovered": true
     },
     {
         "name": "Amethyst",
         "image": "./assets/amethyst_ore.png",
         "min_level": 50,
-        "health": 40
+        "health": 150,
+        "discovered": true
     },
     {
         "name": "Sapphire",
         "image": "./assets/sapphire_ore.png",
         "min_level": 60,
-        "health": 65
+        "health": 170,
+        "discovered": true
     },
     {
         "name": "Ruby",
         "image": "./assets/ruby_ore.png",
         "min_level": 80,
-        "health": 70
+        "health": 200,
+        "discovered": true
     },
     {
         "name": "Opal",
         "image": "./assets/opal_ore.png",
         "min_level": 90,
-        "health": 80
+        "health": 250,
+        "discovered": true
     },
     {
         "name": "Gold",
         "image": "./assets/gold_ore.png",
         "min_level": 100,
-        "health": 40
+        "health": 270,
+        "discovered": false
     },
     {
         "name": "Emerald",
         "image": "./assets/emerald_ore.png",
         "min_level": 120,
-        "health": 85
+        "health": 390,
+        "discovered": true
     },
     {
         "name": "Titanium",
         "image": "./assets/titanium_ore.png",
         "min_level": 140,
-        "health": 120
+        "health": 420,
+        "discovered": true
     },
     {
         "name": "Platinum",
         "image": "./assets/platinum_ore.png",
         "min_level": 170,
-        "health": 100
+        "health": 500,
+        "discovered": true
     },
     {
         "name": "Diamond",
         "image": "./assets/diamond_ore.png",
         "min_level": 200,
-        "health": 100
+        "health": 650,
+        "discovered": false
     },
     {
         "name": "Uranium",
         "image": "./assets/uranium_ore.png",
         "min_level": 400,
-        "health": 200
+        "health": 1300,
+        "discovered": false
     }
 ]

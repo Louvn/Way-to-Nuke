@@ -4,7 +4,7 @@ const inventoryScreen = document.getElementById("inventory");
 const shop = document.getElementById("shop");
 const shopItemsScreen = document.getElementById("shopItems");
 const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
-
+localStorage.clear()
 // Load Saved Game
 let savedGame;
 if ("everlyAPI" in window) {
@@ -24,12 +24,12 @@ if (!savedGame) {
         level: 0,
         inventory: {},
         shop: [],
+        allOres: [],
         currentOre: null
     }
 };
 
 let isPressed = false;
-let allOres = [];
 
 document.addEventListener("keydown", (e) => {
     if((e.code === "Enter" || e.code === "Space") && !isPressed) {
@@ -74,7 +74,11 @@ function onOreClick() {
 
 function generateNewOre(id = null) {
     document.querySelectorAll(".ore-button").forEach(el => el.remove());
-    const allOresAvailable = allOres.filter((value) => value.min_level <= savedGame.level);
+
+    const allOresAvailable = savedGame.allOres.filter(
+        (ore) => ore.min_level <= savedGame.level && ore.discovered
+    );
+
     let oreData = allOresAvailable[Math.floor(Math.random() * allOresAvailable.length)];
 
     if (id) {
@@ -146,6 +150,7 @@ function buyItem(item) {
     requirementsToBuy.forEach(([ore, number]) => {
         savedGame.inventory[ore] -= number;
     });
+
     renderInventory();
     increaseItemPrice(item);
 
@@ -157,6 +162,20 @@ function buyItem(item) {
     if (effect.tick) {
         savedGame.oreDamageOnTick += effect.tick;
     }
+    if (effect.discovered) {
+        effect.discovered.forEach(ore => {
+            const idx = savedGame.allOres.findIndex(oreEntry => oreEntry.name == ore);
+            savedGame.allOres[idx].discovered = true;
+        });
+    }
+
+    // buyable & buyed
+    const idx = savedGame.shop.findIndex((e) => e.name == item.name);
+    savedGame.shop[idx].buyed += 1;
+    if (savedGame.shop[idx].buyed >= savedGame.shop[idx].buyable) {
+        savedGame.shop.splice(idx, 1);
+        renderShop();
+    }
 }
 
 function renderShop() {
@@ -165,7 +184,7 @@ function renderShop() {
         const shopItemCard = shopItemCardTemplate.content.cloneNode(true);
         shopItemCard.querySelector(".image").src = shopItem.image;
         shopItemCard.querySelector(".image").alt = shopItem.name;
-        shopItemCard.querySelector(".description").innerText = shopItem.description;
+        shopItemCard.querySelector(".description").innerText = `${shopItem.name}: ${shopItem.description}`;
         shopItemCard.querySelector(".card").addEventListener("click", () => buyItem(shopItem));
 
         renderInventory(shopItem.price, shopItemCard.querySelector(".price"), `price-${shopItem.name}`);
@@ -177,7 +196,7 @@ function startGame() {
     fetch("ores.json")
         .then(response => response.json())
         .then(data => {
-            allOres = data;
+            if (savedGame.allOres.length === 0) savedGame.allOres = data;
 
             fetch("shop.json")
                 .then(response => response.json())
