@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mining Odds</title>
+    <title>Way to Nuke</title>
     <link rel="stylesheet" href="./index.css">
 </head>
 <body>
+    <!-- Loading NPCs -->
+    <img class="load-only" src="./assets/general_nuggeta.png">
+    <img class="load-only" src="./assets/henri.png">
+    <img class="load-only" src="./assets/shopkeeper.png">
+    <img class="load-only" src="./assets/marco_de_sandias.png">
+    <img class="load-only" src="./assets/the_scientist.png">
+    <img class="load-only" src="./assets/ava_admiral.png">
+    <img class="load-only" src="./assets/ava_marine_soldier.png">
+
     <div id="gameScreen">
+        <div id="npcWindow">
+            <img src="./assets/henri.png" alt="">
+            <span></span>
+        </div>
+
         <progress id="oreDestroyingProgress" min="1"></progress>
+
         <button class="shop-button" onclick="openShop()">
-            <img src="./assets/shopkeeper.png" alt="open Shop">
+            <img src="./assets/shopkeeper_button.png" alt="open Shop">
         </button>
+
         <div class="bar">
             <ol id="inventory"></ol>
         </div>
+
         <div id="shop">
             <section class="shopHeader">
                 <img src="./assets/shop_sign.png" alt="" class="shopSign">

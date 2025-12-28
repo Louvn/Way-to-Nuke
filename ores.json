@@ -3,7 +3,7 @@
         "name": "Coal",
         "image": "./assets/coal_ore.png",
         "min_level": 0,
-        "health": 20,
+        "health": 30,
         "discovered": true
     },
     {
@@ -67,7 +67,7 @@
         "image": "./assets/titanium_ore.png",
         "min_level": 140,
         "health": 420,
-        "discovered": true
+        "discovered": false
     },
     {
         "name": "Platinum",

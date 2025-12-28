@@ -109,5 +109,38 @@
         "effect": {
             "discovered": ["Diamond"]
         }
+    },
+    {
+        "name": "Mineshaft C",
+        "description": "Discover Titanium",
+        "image": "./assets/mineshaft_titanium_upgrade.png",
+        "price": {
+            "Amethyst": 30,
+            "Platinum": 6
+        },
+        "priceIncrement": {},
+        "buyed": 0,
+        "buyable": 1,
+        "effect": {
+            "discovered": ["Titanium"]
+        }
+    },
+    {
+        "name": "Mine Cart",
+        "description": "x1.5 efficiency of Employees.",
+        "image": "./assets/mine_cart_upgrade.png",
+        "price": {
+            "Amethyst": 30,
+            "Ruby": 10
+        },
+        "priceIncrement": {
+            "Amethyst": 30,
+            "Ruby": 20
+        },
+        "buyed": 0,
+        "buyable": 3,
+        "effect": {
+            "efficiency": "1.5"
+        }
     }
 ]

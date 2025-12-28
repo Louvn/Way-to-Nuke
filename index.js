@@ -4,7 +4,8 @@ const inventoryScreen = document.getElementById("inventory");
 const shop = document.getElementById("shop");
 const shopItemsScreen = document.getElementById("shopItems");
 const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
-localStorage.clear()
+const npcWindow = document.getElementById("npcWindow");
+
 // Load Saved Game
 let savedGame;
 if ("everlyAPI" in window) {
@@ -12,7 +13,7 @@ if ("everlyAPI" in window) {
         savedGame = data;
         startGame();
     });
-} else {
+} else {
     savedGame = JSON.parse(localStorage.getItem("save"));
     startGame();
 }
@@ -22,14 +23,17 @@ if (!savedGame) {
         oreDamageOnClick: 1,
         oreDamageOnTick: 0,
         level: 0,
-        inventory: {},
+        inventory: {"Ruby": 50, "Gold": 50, "Amethyst": 70},
         shop: [],
         allOres: [],
-        currentOre: null
+        currentOre: null,
+        efficiency: 1
     }
 };
 
+let allNpcs = null;
 let isPressed = false;
+let isTalking = false;
 
 document.addEventListener("keydown", (e) => {
     if((e.code === "Enter" || e.code === "Space") && !isPressed) {
@@ -43,13 +47,43 @@ document.addEventListener("keyup", (e) => {
     if (e.code === "Enter" || e.code === "Space") isPressed = false;
 })
 
+function typeNext(lines, line, char, resolve) {
+    if (char >= lines[line].length) {
+        setTimeout(() => {
+            if (line >= lines.length - 1) {
+                npcWindow.classList.remove("text-shown");
+                isTalking = false;
+                resolve();
+                return
+            };
+
+            npcWindow.querySelector("span").textContent = "";
+            typeNext(lines, line + 1, 0, resolve);
+        }, 1000);
+        return
+    }
+    npcWindow.querySelector("span").textContent += lines[line][char];
+    setTimeout(() => typeNext(lines, line, char + 1, resolve), 100)
+}
+
+function speak(npc, lines_idx) {
+    return new Promise(resolve => {
+        if (isTalking === true) return resolve();
+        isTalking = true;
+        npcWindow.classList.add("text-shown");
+        npcWindow.querySelector("span").textContent = "";
+        npcWindow.querySelector("img").src = `./assets/${npc}.png`;
+        typeNext(allNpcs[npc][lines_idx], 0, 0, resolve);
+    })
+}
+
 function renderInventory(inv = savedGame.inventory, invScreen = inventoryScreen, id = "inventory") {
     Object.entries(inv).forEach(([ore, value]) => {
         let existing = document.getElementById(`${id}-${ore}`);
         if (!existing) {
             existing = document.createElement("li");
             existing.id = (`${id}-${ore}`);
-            existing.innerHTML = `<img src="./assets/${ore.toLowerCase()}_ore.png" alt=${ore}><span class="inventory-value"></span>`;
+            existing.innerHTML = `<img src="./assets/${ore.toLowerCase()}_ore.png" alt="${ore}"><span class="inventory-value"></span>`;
             invScreen.appendChild(existing);
         }
         const inventoryValue = existing.querySelector(".inventory-value");
@@ -61,18 +95,22 @@ function destroyOre(ore_id = savedGame.currentOre) {
     savedGame.level += 1;
     if (!savedGame.inventory[ore_id]) savedGame.inventory[ore_id] = 0;
     savedGame.inventory[ore_id] += 1;
+    
+    if (savedGame.level == 1) speak("general_nuggeta", 1);
+
     generateNewOre();
     renderInventory();
 }
 
 function onOreClick() {
+    if (!savedGame.currentOre) return;
     oreDestroyingProgress.value -= savedGame.oreDamageOnClick;
     if (oreDestroyingProgress.value <= 0) {
         destroyOre();
     }
 }
 
-function generateNewOre(id = null) {
+async function generateNewOre(id = null) {
     document.querySelectorAll(".ore-button").forEach(el => el.remove());
 
     const allOresAvailable = savedGame.allOres.filter(
@@ -106,6 +144,35 @@ function generateNewOre(id = null) {
     
     savedGame.currentOre = ore.id;
     gameScreen.appendChild(ore);
+
+    // npc reaction
+    if (oreData.name == "Copper" && !("Copper" in savedGame.inventory)) speak("general_nuggeta", 3);
+    if (oreData.name == "Iron" && !("Iron" in savedGame.inventory)) speak("general_nuggeta", 7);
+    if (oreData.name == "Ruby" && !("Ruby" in savedGame.inventory)) speak("general_nuggeta", 9);
+    if (oreData.name == "Sapphire" && !("Sapphire" in savedGame.inventory)) speak("marco_de_sandias", 0);
+    if (oreData.name == "Gold" && (savedGame.inventory["Gold"] == 1)) speak("general_nuggeta", 11);
+    if (oreData.name == "Uranium" && (savedGame.inventory["Uranium"] == 2)) {
+        await speak("ava_admiral", 0);
+        await speak("general_nuggeta", 12);
+        await speak("ava_admiral", 1);
+        await speak("general_nuggeta", 13);
+        await speak("ava_admiral", 2);
+    }
+    if (oreData.name == "Uranium" && (savedGame.inventory["Uranium"] == 10)) {
+        await speak("ava_admiral", 3);
+        await speak("general_nuggeta", 15);
+        await speak("henri", 3);
+        await speak("ava_admiral", 4);
+        await speak("ava_marine_soldier", 0);
+
+        setTimeout(async () => {
+            await speak("marco_de_sandias", 1);
+        }, 5 * 1000);
+    }
+    if (savedGame.inventory["Uranium"] == 100 && savedGame.inventory["Titanium"] == 150) {
+        speak("the_scientist", 1);
+    }
+    if (oreData.name == "Uranium" && !("Uranium" in savedGame.inventory)) speak("general_nuggeta", 16);
 }
 
 function openShop() {
@@ -127,7 +194,7 @@ function increaseItemPrice(item) {
     renderShop();
 }
 
-function buyItem(item) {
+async function buyItem(item) {
     let itemInSave;
     savedGame.shop.forEach((saveItem) => {
         if (saveItem.name == item.name) {
@@ -142,7 +209,13 @@ function buyItem(item) {
             if (inventoryOre == ore && inventoryNumber >= number) inInventory = true;
         });
         if (!inInventory) {
-            alert("You can not afford this Item.");
+
+            if (Math.random() > 0.5) {
+                speak("shopkeeper", 0);
+            } else {
+                speak("shopkeeper", 1);
+            }
+
             return;
         }
     };
@@ -168,6 +241,9 @@ function buyItem(item) {
             savedGame.allOres[idx].discovered = true;
         });
     }
+    if (effect.efficiency) {
+        savedGame.efficiency *= effect.efficiency;
+    }
 
     // buyable & buyed
     const idx = savedGame.shop.findIndex((e) => e.name == item.name);
@@ -175,6 +251,28 @@ function buyItem(item) {
     if (savedGame.shop[idx].buyed >= savedGame.shop[idx].buyable) {
         savedGame.shop.splice(idx, 1);
         renderShop();
+    }
+
+    // npc reaction
+    if (item.name == "Pickaxe" && savedGame.shop.find(e => e.name == "Pickaxe").buyed == 1) {
+        await speak("general_nuggeta", 2);
+        await speak("henri", 0);
+        await speak("general_nuggeta", 4);
+        await speak("henri", 1);
+        await speak("general_nuggeta", 5);
+        await speak("henri", 2);
+        await speak("general_nuggeta", 6)
+    }
+    if (item.name == "Dynamite" && savedGame.shop.find(e => e.name == "Dynamite").buyed == 1) {
+        await speak("general_nuggeta", 8)
+    }
+    if (item.name == "Mineshaft A") speak("general_nuggeta", 10);
+    if (item.name == "The Scientist") {
+        speak("the_scientist", 0);
+    }
+    if (item.name == "Nuke") {
+        await speak("marco_de_sandias", 2);
+        await speak("the_scientist", 2);
     }
 }
 
@@ -192,28 +290,33 @@ function renderShop() {
     })
 }
 
-function startGame() {
-    fetch("ores.json")
-        .then(response => response.json())
-        .then(data => {
-            if (savedGame.allOres.length === 0) savedGame.allOres = data;
+async function startGame() {
+    try {
+        const ores = await fetch("ores.json").then(r => r.json());
+        if (savedGame.allOres.length === 0) savedGame.allOres = ores;
 
-            fetch("shop.json")
-                .then(response => response.json())
-                .then(data => {
-                    if (savedGame.shop.length === 0) savedGame.shop = data;
-                    renderShop();
-                    renderInventory();
-                    generateNewOre(savedGame.currentOre);
-                })
-        })
-        .catch(error => {
-            console.error("Error while loading the ores.json and shop.json files:", error);
-            alert("The Game Data did not load correctly. Please try to reload the Site.");
-        })
+        const shopData = await fetch("shop.json").then(r => r.json());
+        if (savedGame.shop.length === 0) savedGame.shop = shopData;
+
+        const npcs = await fetch("npcs.json").then(r => r.json());
+        allNpcs = npcs;
+
+        renderShop();
+        renderInventory();
+
+        if (savedGame.level === 0) {
+            await speak("general_nuggeta", 0);
+        }
+
+        generateNewOre(savedGame.currentOre);
+
+    } catch (err) {
+        console.error(err);
+        alert("The Game Data did not load correctly. Please try to reload the Site.");
+    }
 
     setInterval(() => {
-        oreDestroyingProgress.value -= savedGame.oreDamageOnTick;
+        oreDestroyingProgress.value -= savedGame.oreDamageOnTick * savedGame.efficiency;
         if (oreDestroyingProgress.value <= 0) {
             destroyOre();
         }

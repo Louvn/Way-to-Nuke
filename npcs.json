@@ -1,0 +1,162 @@
+{
+    "general_nuggeta": [
+        [
+            "Sie wurden gewiss bereits über ihre Aufgabe in Kenntnis gesetzt, nicht wahr?",
+            "Nein? Na gut, gestatten Sie mir, mich Ihnen vorzustellen. Ich bin General Nuggeta und in dieser Sache Ihr Vorgesetzter.",
+            "Es wird sicher nicht leicht sein, aber es wird sich lohnen. Die AVA ist uns schon lange überlegen. Dies mag nicht zuletzt an ihrem Atomwaffenarsenal liegen.",
+            "Wir hingegen besitzen kein solches Arsenal. Zumindest bis jetzt...",
+            "Ihre Aufgabe wird es sein, uns den Bau von Atomsprengkörpern zu ermöglichen, indem Sie nach den erforderlichen Stoffen graben.",
+            "Beginnen Sie, indem Sie ein wenig Kohle abbauen."
+        ],
+        [
+            "Gut gemacht. Kohle wird essenziell sein, um erste Fortschritte verzeichnen zu können. Sobald Sie 12 Kohle beisammen haben, können Sie Ihr erstes Upgrade erwerben.",
+            "Upgrades haben verschiedene Effekte. Manche schalten neue Erze frei, andere verbessern den Abbauschaden oder die Effizienz von Mitarbeitern.",
+            "Mitarbeiter können wir bis jetzt leider noch keine vorweisen, dennoch bin ich mir sicher, dass Sie uns nicht enttäuschen werden."
+        ],
+        [
+            "Sie sind wirklich unaufhaltsam! Mit dieser Geschwindigkeit hätte ich nicht gerechnet.",
+            "Da Sie nun Ihr erstes Upgrade erworben haben, fügen Sie ab sofort Erzen mehr Schaden zu. Probieren Sie es ruhig aus!",
+            "Bemerken Sie den Unterschied? Mit der verbesserten Geschwindigkeit –"
+        ],
+        [
+            "Sehen Sie nur! Kupfer könnte in Zukunft durchaus nützlich werden. Wir benötigen 12 davon für Dynamit.",
+            "Zusätzlich natürlich 10 Eisen, aber ich denke, daran haben Sie bereits gedacht."
+        ],
+        [
+            "Nein, Sir. Ich hoffe, Sie sind mit unserem Fortschritt zufrieden."
+        ],
+        [
+            "Ich verstehe, Sir. Für den Fortbestand der HO werden wir Tag und Nacht schuften."
+        ],
+        [
+            "Nun denn, Sie haben ihn gehört. Ihr nächstes Ziel wird es sein, Eisen zu finden.",
+            "Graben Sie einfach weiter, leisten Sie sich Upgrades und geben Sie mir Bescheid, sobald Sie auf Eisen stoßen."
+        ],
+        [
+            "Sie haben Eisen gefunden? Um unsere Produktivität zu steigern, empfehle ich Ihnen, auf Dynamit hinzuarbeiten.",
+            "Sie werden 10 Eisen und 12 Kupfer benötigen. Kriegen Sie das hin?"
+        ],
+        [
+            "Hervorragend! Unsere Produktivität hat sich in letzter Zeit erheblich verbessert. Weiter so!"
+        ],
+        [
+            "Welch prachtvoller Edelstein. Rubine bringen uns unserem Ziel näher.",
+            "Mit Rubinen und einigen anderen Edelsteinen werden wir Minenschacht A wieder in Betrieb nehmen können.",
+            "Dort gibt es einige Goldvorkommen, und Gold benötigen wir, um unseren ersten Mitarbeiter einzustellen.",
+            "Sie machen Ihre Arbeit gut. Sie genießen bereits ein hohes Ansehen bei unserem großen Anführer.",
+            "Sorgen Sie dafür, dass das auch so bleibt."
+        ],
+        [
+            "Sie haben Minenschacht A also erfolgreich wieder in Betrieb genommen.",
+            "Nun steht einem Mitarbeiter nichts mehr im Wege. Wir benötigen einzig 2 Gold."
+        ],
+        [
+            "Das sollte ausreichen. Kümmern Sie sich nun um Ihren ersten Mitarbeiter.",
+            "Weitere Instruktionen erwarten Sie bereits."
+        ],
+        [
+            "Wir kommen unserem Ziel immer näher. Es wird Zeit, dass wir anfangen, Uran zu fördern.",
+            "Dazu benötigen wir einen Wissenschaftler. Sobald Sie einen haben, können wir fortfahren."
+        ],
+        [
+            "Warum sollten wir?"
+        ],
+        [
+            "Ich fürchte, ich muss in dieser Angelegenheit erst mit meinem Vorgesetzten sprechen."
+        ],
+        [
+            "Ich habe mit meinem Vorgesetzten gesprochen und –"
+        ],
+        [
+            "Uran! Wir sind dem Ziel so nahe. Ich kann schon spüren, wie das die Welt ins Wanken bringen wird.",
+            "Die HO wird so viel stärker dastehen."
+        ]
+    ],
+    "henri": [
+        [
+            "Guten Tag, störe ich?"
+        ],
+        [
+            "Das bin ich in der Tat. Ich hoffe, Sie beide verstehen den Ernst der Lage.",
+            "Melomyte rüstet sich zum Krieg. Die AVA blockiert sämtliche Routen nach TransAtlantica.",
+            "Ich fürchte, es wird bald so weit sein. Ein weiterer TransAtlantica-Krieg steht kurz bevor.",
+            "Wir brauchen diese Sprengkörper so schnell wie möglich."
+        ],
+        [
+            "Ich werde gewiss bald noch einmal vorbeischauen. Viel Glück!"
+        ],
+        [
+            "Wir werden diese Anlage nicht aufgeben."
+        ]
+    ],
+    "shopkeeper": [
+        [
+            "Willst du mich über den Tisch ziehen?"
+        ],
+        [
+            "Komm später wieder. Und vielleicht kannst du dann auch bezahlen."
+        ]
+    ],
+    "marco_de_sandias": [
+        [
+            "Es überrascht Sie vielleicht, aber wir sind durchaus beeindruckt von Ihrem Fortschritt.",
+            "Mein Name ist Marco de Sandiás. Ich bin eine der Elemelonen: der Aufsichtsrat von Melomyte.",
+            "Es ist zu schade, dass eine Person wie Sie an einer Organisation wie der HO festhält.",
+            "Deshalb möchte ich Ihnen ein Angebot unterbreiten.",
+            "Machen Sie weiter wie bisher, aber sobald Sie die Atomsprengkörper haben, übergeben Sie sie an uns.",
+            "Wie klingt das für Sie?"
+        ],
+        [
+            "Ich hoffe, Sie haben ausreichend über mein Angebot nachgedacht.",
+            "Führen Sie Ihre Arbeit für UNS fort, und wir verschonen Sie.",
+            "Nun machen Sie schon, bauen Sie diese Bombe!"
+        ],
+        [
+            "Sie können stolz auf sich und Ihre Arbeit sein.",
+            "Selbstverständlich werden wir in Zukunft weitere Atombomben bauen wollen, um unser Arsenal zu vergrößern.",
+            "Sie werden gut bezahlt werden. Aber für jetzt haben Sie Ihr Ziel erreicht."
+        ]
+    ],
+    "the_scientist": [
+        [
+            "Ich bin froh, dass Sie mich angeheuert haben, ich bin Experte auf diesem Gebiet.",
+            "Trotzdem wird es eine Herausforderung.",
+            "Ich wage zu bezweifeln, dass es für irgendeine Person auf dieser Welt einfach wäre, eine solche Waffe zu konstruieren.",
+            "Ich wurde darüber in Kenntnis gesetzt, Sie haben die Materialien noch nicht zusammen?",
+            "Gut, beginnen Sie nun ruhig mit Uran."
+        ],
+        [
+            "Wir verfügen nun über ausreichend Ressourcen, um eine Atombombe zu bauen.",
+            "Sind Sie bereit?"
+        ],
+        [
+            "Ein Prachtstück! Leider jedoch in den falschen Händen..."
+        ]
+    ],
+    "ava_admiral": [
+        [
+            "Stellen Sie mit sofortiger Wirkung alle Arbeiten in dieser Anlage ein!"
+        ],
+        [
+            "Die hiesige Anlage wurde von allen Mitgliedsunternehmen der AVA als Bedrohung eingestuft.",
+            "Das bedeutet, dass sie um jeden Preis stillgelegt werden muss.",
+            "Unsere Flotte steht in Schussweite bereit. Legen Sie sofort Ihre Arbeit nieder."
+        ],
+        [
+            "Sie haben Zeit bis Mitternacht."
+        ],
+        [
+            "Es ist so weit. Wie lautet Ihre Antwort?",
+            "Ich möchte für Sie hoffen, dass sie nicht tödlich enden wird."
+        ],
+        [
+            "So soll es sein.",
+            "Eröffnet das Feuer!"
+        ]
+    ],
+    "ava_marine_soldier": [
+        [
+            "Ja, Admiral. Feuer!"
+        ]
+    ]
+}
