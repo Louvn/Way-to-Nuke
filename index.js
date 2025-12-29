@@ -7,17 +7,18 @@ const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
 const npcWindow = document.getElementById("npcWindow");
 
 // Load Saved Game
-let savedGame;
-if ("everlyAPI" in window) {
-    everlyAPI.loadGame((data) => {
-        savedGame = data;
+async function initGame() {
+    let savedGame;
+    if ("everlyAPI" in window) {
+        savedGame = await everlyAPI.loadGame();
         startGame();
-    });
-} else {
-    savedGame = JSON.parse(localStorage.getItem("save"));
-    startGame();
+    } else {
+        savedGame = JSON.parse(localStorage.getItem("save"));
+        startGame();
+    }
 }
 
+initGame();
 if (!savedGame) {
     savedGame = {
         oreDamageOnClick: 1,
