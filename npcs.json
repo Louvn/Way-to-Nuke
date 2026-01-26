@@ -69,7 +69,10 @@
         ],
         [
             "Uran! Wir sind dem Ziel so nahe. Ich kann schon spüren, wie das die Welt ins Wanken bringen wird.",
-            "Die HO wird so viel stärker dastehen."
+            "Die HO wird so viel stärker werden. Und das durch Ihre Arbeit."
+        ],
+        [
+            "Komm schon! Dafür wirst du nicht bezahlt. Zurück an die Arbeit!"
         ]
     ],
     "henri": [
@@ -95,6 +98,11 @@
         ],
         [
             "Komm später wieder. Und vielleicht kannst du dann auch bezahlen."
+        ],
+        [
+            "Kannst du dich auch mal entscheiden?",
+            "Ich habe nicht den ganzen Tag Zeit.",
+            "Na gut... Vielleicht doch, aber sicher nicht für dich."
         ]
     ],
     "marco_de_sandias": [

@@ -1,3 +1,4 @@
+// HTML elements
 const gameScreen = document.getElementById("gameScreen");
 const oreDestroyingProgress = document.getElementById("oreDestroyingProgress");
 const inventoryScreen = document.getElementById("inventory");
@@ -5,6 +6,10 @@ const shop = document.getElementById("shop");
 const shopItemsScreen = document.getElementById("shopItems");
 const shopItemCardTemplate = document.getElementById("shopItemCardTemplate");
 const npcWindow = document.getElementById("npcWindow");
+
+// variables for easter eggs
+let notConfirmedInARow = 0;
+let lastOreClick = null;
 
 // Load Saved Game
 let savedGame;
@@ -21,8 +26,9 @@ async function initGame() {
         savedGame = {
             oreDamageOnClick: 1,
             oreDamageOnTick: 0,
-            level: 0,
+            level: 0, // total of destroyed ores
             inventory: {},
+            inventoryHistory: {}, // Supposed to be a copy of inventory but without substracting ores
             shop: [],
             allOres: [],
             currentOre: null,
@@ -95,8 +101,14 @@ function renderInventory(inv = savedGame.inventory, invScreen = inventoryScreen,
 
 function destroyOre(ore_id = savedGame.currentOre) {
     savedGame.level += 1;
+
+    // adding ore to inv
     if (!savedGame.inventory[ore_id]) savedGame.inventory[ore_id] = 0;
     savedGame.inventory[ore_id] += 1;
+
+    // adding ore to inventoryHistory
+    if (!savedGame.inventoryHistory[ore_id]) savedGame.inventoryHistory[ore_id] = 0;
+    savedGame.inventoryHistory[ore_id] += 1;
     
     if (savedGame.level == 1) speak("general_nuggeta", 1);
 
@@ -106,6 +118,10 @@ function destroyOre(ore_id = savedGame.currentOre) {
 
 function onOreClick() {
     if (!savedGame.currentOre) return;
+
+    // for easter egg
+    lastOreClick = performance.now();
+
     oreDestroyingProgress.value -= savedGame.oreDamageOnClick;
     if (oreDestroyingProgress.value <= 0) {
         destroyOre();
@@ -148,19 +164,20 @@ async function generateNewOre(id = null) {
     gameScreen.appendChild(ore);
 
     // npc reaction
-    if (oreData.name == "Copper" && !("Copper" in savedGame.inventory)) speak("general_nuggeta", 3);
-    if (oreData.name == "Iron" && !("Iron" in savedGame.inventory)) speak("general_nuggeta", 7);
-    if (oreData.name == "Ruby" && !("Ruby" in savedGame.inventory)) speak("general_nuggeta", 9);
-    if (oreData.name == "Sapphire" && !("Sapphire" in savedGame.inventory)) speak("marco_de_sandias", 0);
-    if (oreData.name == "Gold" && (savedGame.inventory["Gold"] == 1)) speak("general_nuggeta", 11);
-    if (oreData.name == "Uranium" && (savedGame.inventory["Uranium"] == 2)) {
+    // using inventoryHistory to check for example if it was the first Cooper ever generated
+    if (oreData.name == "Copper" && !("Copper" in savedGame.inventoryHistory)) speak("general_nuggeta", 3);
+    if (oreData.name == "Iron" && !("Iron" in savedGame.inventoryHistory)) speak("general_nuggeta", 7);
+    if (oreData.name == "Ruby" && !("Ruby" in savedGame.inventoryHistory)) speak("general_nuggeta", 9);
+    if (oreData.name == "Sapphire" && !("Sapphire" in savedGame.inventoryHistory)) speak("marco_de_sandias", 0);
+    if (oreData.name == "Gold" && savedGame.inventoryHistory["Gold"] == 1) speak("general_nuggeta", 11);
+    if (oreData.name == "Uranium" && (savedGame.inventoryHistory["Uranium"] == 2)) {
         await speak("ava_admiral", 0);
         await speak("general_nuggeta", 12);
         await speak("ava_admiral", 1);
         await speak("general_nuggeta", 13);
         await speak("ava_admiral", 2);
     }
-    if (oreData.name == "Uranium" && (savedGame.inventory["Uranium"] == 10)) {
+    if (oreData.name == "Uranium" && (savedGame.inventoryHistory["Uranium"] == 10)) {
         await speak("ava_admiral", 3);
         await speak("general_nuggeta", 15);
         await speak("henri", 3);
@@ -171,10 +188,10 @@ async function generateNewOre(id = null) {
             await speak("marco_de_sandias", 1);
         }, 5 * 1000);
     }
-    if (savedGame.inventory["Uranium"] == 100 && savedGame.inventory["Titanium"] == 150) {
+    if (savedGame.inventoryHistory["Uranium"] == 100 && savedGame.inventoryHistory["Titanium"] == 150) {
         speak("the_scientist", 1);
     }
-    if (oreData.name == "Uranium" && !("Uranium" in savedGame.inventory)) speak("general_nuggeta", 16);
+    if (oreData.name == "Uranium" && !("Uranium" in savedGame.inventoryHistory)) speak("general_nuggeta", 16);
 }
 
 function openShop() {
@@ -221,7 +238,21 @@ async function buyItem(item) {
             return;
         }
     };
-    if (!confirm("Do you want to buy " + item.name + "?")) return;
+
+    // confirming the action
+    if (!confirm("Do you want to buy " + item.name + "?")) {
+
+        // easter egg: special dialogue if you not confirmed often in a row
+        notConfirmedInARow += 1;
+
+        if (notConfirmedInARow >= 3) {
+            speak("shopkeeper", 2);
+        }
+
+        return;
+    }
+    notConfirmedInARow = 0;
+
     requirementsToBuy.forEach(([ore, number]) => {
         savedGame.inventory[ore] -= number;
     });
@@ -318,9 +349,16 @@ async function startGame() {
     }
 
     setInterval(() => {
+        // employees
         oreDestroyingProgress.value -= savedGame.oreDamageOnTick * savedGame.efficiency;
         if (oreDestroyingProgress.value <= 0) {
             destroyOre();
+        }
+
+        // easter egg: special dialogue when you don't click
+        if (performance.now() - lastOreClick >= 20_000 && lastOreClick) {
+            speak("general_nuggeta", 17);
+            lastOreClick = null; // to avoid speak multiple times for one event
         }
 
         // save the Game
