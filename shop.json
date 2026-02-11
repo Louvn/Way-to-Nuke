@@ -140,7 +140,39 @@
         "buyed": 0,
         "buyable": 3,
         "effect": {
-            "efficiency": "1.5"
+            "efficiency": 1.5
+        }
+    }, 
+    {
+        "name": "Russian Bear",
+        "description": "Doubles the efficiency of all Employees.",
+        "image": "./assets/russian_bear_upgrade.png",
+        "price": {
+            "Emerald": 45
+        },
+        "priceIncrement": {
+            "Emerald": 10
+        },
+        "buyed": 0,
+        "buyable": 2,
+        "effect": {
+            "efficiency": 2.0
+        }
+    },
+    {
+        "name": "Axolotl",
+        "description": "A better Employee. +4 Damage per tick.",
+        "image": "./assets/axolotl_upgrade.png",
+        "price": {
+            "Titanium": 2
+        },
+        "priceIncrement": {
+            "Titanium": 4
+        },
+        "buyed": 0,
+        "buyable": 5,
+        "effect": {
+            "tick": 4
         }
     }
 ]
