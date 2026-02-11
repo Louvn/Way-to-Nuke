@@ -323,13 +323,30 @@ function renderShop() {
     })
 }
 
+function updateSavedGameShop(shop, shopJsonFile) {
+    const existingNames = new Set(shop.map(obj => obj.name));
+
+    for (const obj of shopJsonFile) {
+        if (!existingNames.has(obj.name)) {
+            shop.push(obj);
+            existingNames.add(obj.name);
+        }
+    }
+
+    return shop;
+}
+
 async function startGame() {
     try {
         const ores = await fetch("ores.json").then(r => r.json());
         if (savedGame.allOres.length === 0) savedGame.allOres = ores;
 
         const shopData = await fetch("shop.json").then(r => r.json());
-        if (savedGame.shop.length === 0) savedGame.shop = shopData;
+        if (savedGame.shop.length === 0) {
+            savedGame.shop = shopData;
+        } else {
+            savedGame.shop = updateSavedGameShop(savedGame.shop, shopData);
+        }
 
         const npcs = await fetch("npcs.json").then(r => r.json());
         allNpcs = npcs;
