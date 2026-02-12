@@ -164,10 +164,10 @@
         "description": "A better Employee. +4 Damage per tick.",
         "image": "./assets/axolotl_upgrade.png",
         "price": {
-            "Titanium": 2
+            "Platinum": 2
         },
         "priceIncrement": {
-            "Titanium": 4
+            "Platinum": 4
         },
         "buyed": 0,
         "buyable": 5,
