@@ -327,7 +327,7 @@ function updateSavedGameShop(shop, shopJsonFile) {
     const existingNames = new Set(shop.map(obj => obj.name));
 
     for (const obj of shopJsonFile) {
-        if (!existingNames.has(obj.name)) {
+        if (!existingNames.has(obj.name) && ["Russian Bear", "Axolotl"].has(obj.name)) {
             shop.push(obj);
             existingNames.add(obj.name);
         }
